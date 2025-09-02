@@ -2,7 +2,10 @@
   "name": "mern-project",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,5 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.0",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
   }
 }
