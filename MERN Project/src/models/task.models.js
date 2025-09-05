@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { TaskStatusEnum , AvaliableTasks } from '../utils/constants'
 const tasksSchema = new mongoose.Schema({
 
-    title: { type: String, required: true, trim: true },
+    title: { type: String, required: [true, "Project ref is required"], trim: true },
     discription: { type: String , required: true, trim: true },
     project: { type: Schema.Types.ObjectId, ref: "Project", required: true},
     assignBy: { type: Schema.Types.ObjectId, ref: "User", require: true},
