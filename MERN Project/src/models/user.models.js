@@ -1,16 +1,20 @@
 import mongoose from 'mongoose'
 const UserSchema = new mongoose.Schema({
     id: { type: String },
-    avatar: { type: String, required: false },
-    username: { type: String, required: true, unique: true },
-    fullname: { type: String, required: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true },
+    avatar: { type: {
+        url: String,
+        localpath: String
+    },default: { url: "https://placehold.co/600x400", localpath: ""}},
+    username: { type: String, required: true, unique: true, trim: true, lowercase: true, index:true },
+    fullname: { type: String, required: true , trim: true,},
+    password: { type: String, required: true , trim: true , },
+    email: { type: String, required: true , unique:true, index:true, lowercase:true , trim: true},
     isVarifiedEmail: { type: Boolean, default: false },
     refreshToken: { type: String },
     forgetPasswordToken: { type: String },
-    emailVarifyToken: { type: String },
-    emailVarifyTokenExpiry: { type: String }
+    forgetPasswordExpiry: { type: Date },
+    emailVarificationToken: { type: String },
+    emailVarificationTokenExpiry: { type: Date }
 
 },{timestamps: true })
 
