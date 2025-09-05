@@ -5,4 +5,4 @@ const subTasksSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model('subTasks' , subTasksSchema);
+export default mongoose.model('SubTasks' , subTasksSchema);
