@@ -8,8 +8,9 @@ const tasksSchema = new mongoose.Schema({
     assignBy: { type: Schema.Types.ObjectId, ref: "User", require: true},
     assignTo: { type: Schema.Types.ObjectId, ref: "User", require: true},
     status: { enum: AvaliableTasks , default: TaskStatusEnum.TODO, required: true},
-    attachments: { type: [] , required: false }
-    
+    attachments: { type: [
+        { url: String , mimetype: String , size: Number , default: []}
+    ]} 
 },{
     timestamps: true
 })
