@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
 const UserSchema = new mongoose.Schema({
     id: { type: String },
     avatar: { type: {
@@ -26,7 +29,39 @@ UserSchema.pre("save" , async function(next){
     }
     next();
 });
-UserSchema.post();
+
+UserSchema.methods.isPasswordCorrect = async function(password) {
+    return await bcrypt.compare(password , this.password)
+}
+
+UserSchema.methods.genrateAccessToken = async function() {
+    return jwt.sign({
+        _id: this.id,
+        user: this.username,
+        email: this.email,
+    }, process.env.ACCESS_TOKEN_SECRET_KEY,
+    {   
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+    })
+}
+UserSchema.methods.genrateRefreshToken =  function() {
+    return jwt.sign({
+        _id: this.id,
+        user: this.username,
+        email: this.email,
+    }, process.env.REFRESH_TOKEN_SECRET_KEY,
+    {   
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+    })
+}
+
+UserSchema.methods.generateTempraryToken = async function() {
+    const unHashedToken = crypto.randomBytes(20).toString("hex")
+}
+
+
+
+
 
 
 export default mongoose.model("User", UserSchema)
