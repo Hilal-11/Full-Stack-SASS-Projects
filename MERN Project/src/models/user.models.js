@@ -18,7 +18,6 @@ const UserSchema = new mongoose.Schema({
     forgetPasswordExpiry: { type: Date },
     emailVarificationToken: { type: String },
     emailVarificationTokenExpiry: { type: Date }
-
 },{timestamps: true })
 
 
@@ -59,10 +58,5 @@ UserSchema.methods.generateTempraryToken = async function() {
 
     return { unHashedToken , hashedToken , tokenExpiry}
 }
-
-
-
-
-
 
 export default mongoose.model("User", UserSchema)
