@@ -29,11 +29,9 @@ UserSchema.pre("save" , async function(next){
     }
     next();
 });
-
 UserSchema.methods.isPasswordCorrect = async function(password) {
     return await bcrypt.compare(password , this.password)
 }
-
 UserSchema.methods.genrateAccessToken = async function() {
     return jwt.sign({
         _id: this.id,
@@ -54,9 +52,12 @@ UserSchema.methods.genrateRefreshToken =  function() {
         expiresIn: process.env.REFRESH_TOKEN_EXPIRY
     })
 }
-
 UserSchema.methods.generateTempraryToken = async function() {
     const unHashedToken = crypto.randomBytes(20).toString("hex")
+    const hashedToken = crypto.createHash("sha256").update(unHashedToken).digest("hex")
+    const tokenExpiry = Date.now() + (20 * 60 * 10000); //20-minutes
+
+    return { unHashedToken , hashedToken , tokenExpiry}
 }
 
 
