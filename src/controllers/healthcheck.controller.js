@@ -1,4 +1,4 @@
-import { ApiResponse } from '../utils/api-response'
+import { ApiResponse } from '../utils/api-response.js'
 const healthcheck = async (req , res) => {
     try{
         res.status(200).json(
@@ -9,4 +9,4 @@ const healthcheck = async (req , res) => {
     }
 }
 
-export default healthcheck
+export {healthcheck}
