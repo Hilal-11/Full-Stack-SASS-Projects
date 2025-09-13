@@ -1,4 +1,3 @@
-
 // Higher order function 
 
 const asyncHandler = (requestHandler) => {
@@ -10,4 +9,4 @@ const asyncHandler = (requestHandler) => {
     }
 }
 
-export {asyncHandler}
+export { asyncHandler } 
