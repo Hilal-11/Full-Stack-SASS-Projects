@@ -6,6 +6,6 @@ import { userLoginValidator, userRegistrationValidator } from '../validator/inde
 
 router.route("/register").post(userRegistrationValidator(), validate , registerUser);   // factory pattern
 router.route("/login").post(userLoginValidator() , validate , login)
-router.post("logout", logout)
+router.post("/logout", logout)
 
 export default router;
