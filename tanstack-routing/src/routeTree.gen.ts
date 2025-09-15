@@ -15,6 +15,7 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ContectRouteImport } from './routes/contect'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AppRouteRouteImport } from './routes/App/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductPidRouteImport } from './routes/product.$pid'
 
@@ -45,6 +46,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/App',
+  path: '/App',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -58,6 +64,7 @@ const ProductPidRoute = ProductPidRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/App': typeof AppRouteRoute
   '/about': typeof AboutRoute
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/App': typeof AppRouteRoute
   '/about': typeof AboutRoute
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
@@ -77,6 +85,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/App': typeof AppRouteRoute
   '/about': typeof AboutRoute
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/App'
     | '/about'
     | '/contect'
     | '/pricing'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/App'
     | '/about'
     | '/contect'
     | '/pricing'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/App'
     | '/about'
     | '/contect'
     | '/pricing'
@@ -116,6 +128,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRoute
   AboutRoute: typeof AboutRoute
   ContectRoute: typeof ContectRoute
   PricingRoute: typeof PricingRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/App': {
+      id: '/App'
+      path: '/App'
+      fullPath: '/App'
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -180,6 +200,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRoute,
   AboutRoute: AboutRoute,
   ContectRoute: ContectRoute,
   PricingRoute: PricingRoute,
