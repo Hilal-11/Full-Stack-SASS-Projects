@@ -8,13 +8,23 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ContectRouteImport } from './routes/contect'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductPidRouteImport } from './routes/product.$pid'
 
+const ProductsLazyRouteImport = createFileRoute('/products')()
+
+const ProductsLazyRoute = ProductsLazyRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/products.lazy').then((d) => d.Route))
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -40,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductPidRoute = ProductPidRouteImport.update({
+  id: '/product/$pid',
+  path: '/product/$pid',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +62,8 @@ export interface FileRoutesByFullPath {
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
   '/projects': typeof ProjectsRoute
+  '/products': typeof ProductsLazyRoute
+  '/product/$pid': typeof ProductPidRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +71,8 @@ export interface FileRoutesByTo {
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
   '/projects': typeof ProjectsRoute
+  '/products': typeof ProductsLazyRoute
+  '/product/$pid': typeof ProductPidRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +81,37 @@ export interface FileRoutesById {
   '/contect': typeof ContectRoute
   '/pricing': typeof PricingRoute
   '/projects': typeof ProjectsRoute
+  '/products': typeof ProductsLazyRoute
+  '/product/$pid': typeof ProductPidRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contect' | '/pricing' | '/projects'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contect'
+    | '/pricing'
+    | '/projects'
+    | '/products'
+    | '/product/$pid'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contect' | '/pricing' | '/projects'
-  id: '__root__' | '/' | '/about' | '/contect' | '/pricing' | '/projects'
+  to:
+    | '/'
+    | '/about'
+    | '/contect'
+    | '/pricing'
+    | '/projects'
+    | '/products'
+    | '/product/$pid'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contect'
+    | '/pricing'
+    | '/projects'
+    | '/products'
+    | '/product/$pid'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +120,19 @@ export interface RootRouteChildren {
   ContectRoute: typeof ContectRoute
   PricingRoute: typeof PricingRoute
   ProjectsRoute: typeof ProjectsRoute
+  ProductsLazyRoute: typeof ProductsLazyRoute
+  ProductPidRoute: typeof ProductPidRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -116,6 +168,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/$pid': {
+      id: '/product/$pid'
+      path: '/product/$pid'
+      fullPath: '/product/$pid'
+      preLoaderRoute: typeof ProductPidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +184,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContectRoute: ContectRoute,
   PricingRoute: PricingRoute,
   ProjectsRoute: ProjectsRoute,
+  ProductsLazyRoute: ProductsLazyRoute,
+  ProductPidRoute: ProductPidRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

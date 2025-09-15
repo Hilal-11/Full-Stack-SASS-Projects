@@ -13,7 +13,7 @@ function RootComponent() {
         <Link to="/about">About</Link>{" "}
         <Link to="/projects">Projects</Link>{" "}
         <Link to="/pricing">Pricing</Link>{" "}
-        <Link to="/contect">Contect</Link>{" "}
+        <Link to="/products">Products</Link>{" "}
       </div>
       <Outlet />
     </React.Fragment>
