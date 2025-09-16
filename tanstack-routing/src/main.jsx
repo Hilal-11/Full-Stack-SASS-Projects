@@ -7,15 +7,16 @@ import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
-
-
+import { AppContextProvider } from './Context/UserContext'
 // Render the app
 const rootElement = document.getElementById('root')
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AppContextProvider>
+        <RouterProvider router={router} />
+      </AppContextProvider>
     </StrictMode>,
   )
 }
