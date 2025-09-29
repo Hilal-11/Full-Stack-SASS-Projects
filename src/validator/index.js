@@ -34,4 +34,21 @@ const userLoginValidator = () => {
     ]
 }
 
-export { userRegistrationValidator , userLoginValidator }
+const forgetPasswordValidator= () => {
+    return [
+
+    ]
+}
+
+const resetPasswordValidator = () => {
+    return [
+
+    ]
+}
+
+export { 
+    userRegistrationValidator,
+    userLoginValidator,
+    forgetPasswordValidator,
+    resetPasswordValidator
+}
