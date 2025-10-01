@@ -7,9 +7,14 @@ const registerUser = asyncHandler(async (req , res) => {
 
 })
 const login = asyncHandler(async (req , res) => {})
-const varifyEmail = asyncHandler(async (req , res) => {})
-const forgetPassword = asyncHandler(async(req , res) => {})
-const resetPassword = asyncHandler(async(req , res) => {})
 const logout = asyncHandler(async(req , res) => {})
+const varifyEmail = asyncHandler(async (req , res) => {})
+const resendVarifyEmail = asyncHandler(async (req , res) => {})
 
-export { registerUser , login , varifyEmail , forgetPassword , resetPassword , logout}
+const refreshAccessToken = asyncHandler(async (req , res) => {})
+const forgetPasswordRequest = asyncHandler(async(req , res) => {})
+const resetPassword = asyncHandler(async(req , res) => {})
+const getUserProfile = asyncHandler(async(req , res) => {})
+
+
+export { registerUser , login , varifyEmail , resendVarifyEmail , refreshAccessToken ,  forgetPasswordRequest , resetPassword , logout}
