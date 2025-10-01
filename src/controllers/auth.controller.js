@@ -17,4 +17,4 @@ const resetPassword = asyncHandler(async(req , res) => {})
 const getUserProfile = asyncHandler(async(req , res) => {})
 
 
-export { registerUser , login , varifyEmail , resendVarifyEmail , refreshAccessToken ,  forgetPasswordRequest , resetPassword , logout}
+export { registerUser , login , varifyEmail , resendVarifyEmail , refreshAccessToken ,  forgetPasswordRequest , resetPassword , logout , getUserProfile}
