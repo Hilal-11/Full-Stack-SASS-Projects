@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 import mailgen from 'mailgen'
 
-const sendMail = async (options) => {
+export const sendMail = async (options) => {
     const mailGenerator = new mailgen({
     theme: 'default',
     product: {
@@ -37,7 +37,7 @@ const sendMail = async (options) => {
     }
 
 }   
-const welcomeRegisterMessage = (username) => {
+export const welcomeRegisterMessage = (username) => {
     return {
         name: username,
         intro: "Hey, Welcome to Task Manager",
@@ -50,7 +50,7 @@ const welcomeRegisterMessage = (username) => {
         }
     }
 }
-const emailVarificationMailGenContent = (username , varificationURL) => {
+export const emailVarificationMailGenContent = (username , varificationURL) => {
     return {
         name: username,
         intro: "varify email",
@@ -67,7 +67,7 @@ const emailVarificationMailGenContent = (username , varificationURL) => {
 }
 
 
-const forgotPasswordMailGenContent = (username , passwordResetURL) => {
+export const forgotPasswordMailGenContent = (username , passwordResetURL) => {
     return {
         name: username,
         intro: "reset your password",
