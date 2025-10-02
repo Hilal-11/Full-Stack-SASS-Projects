@@ -37,7 +37,19 @@ const sendMail = async (options) => {
     }
 
 }   
-
+const welcomeRegisterMessage = (username) => {
+    return {
+        name: username,
+        intro: "Hey, Welcome to Task Manager",
+        action: {
+            instructions: 'Hey, Welcome to Task Manager',
+            button: {
+                color: '#22BC66', // Optional action button color
+                text: 'Welcome to Task Manager',
+            }
+        }
+    }
+}
 const emailVarificationMailGenContent = (username , varificationURL) => {
     return {
         name: username,
