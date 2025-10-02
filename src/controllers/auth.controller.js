@@ -4,6 +4,8 @@ import ApiError from '../utils/api-erro'
 import { UserRolesEnum } from '../utils/constants'
 import { sendMail , welcomeRegisterMessage , emailVarificationMailGenContent , forgotPasswordMailGenContent} from '../utils/mail'
 import { ApiResponse } from '../utils/api-response'
+
+
 const generateAccessAndRefreshTokens  = async (userId) => {
     try{
         const user = await User.findById(userId)
@@ -23,7 +25,6 @@ const generateAccessAndRefreshTokens  = async (userId) => {
         );
     }
 }
-
 
 const registerUser = asyncHandler(async (req , res) => {
     const {email , username, password , role } = req.body;
@@ -93,6 +94,8 @@ const registerUser = asyncHandler(async (req , res) => {
     }
 
 })
+
+
 const login = asyncHandler(async (req , res) => {})
 
 const logout = asyncHandler(async(req , res) => {})
