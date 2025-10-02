@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
+
 const UserSchema = new mongoose.Schema({
     id: { type: String },
     avatar: { type: {
@@ -19,7 +20,6 @@ const UserSchema = new mongoose.Schema({
     emailVarificationToken: { type: String },
     emailVarificationTokenExpiry: { type: Date }
 },{timestamps: true })
-
 
 UserSchema.pre("save" , async function(next){
     if(this.isModified("password")) {
