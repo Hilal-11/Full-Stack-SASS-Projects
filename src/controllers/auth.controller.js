@@ -2,7 +2,7 @@ import { asyncHandler } from '../utils/async-handler'
 import User from '../models/user.models'
 import ApiError from '../utils/api-erro'
 import { UserRolesEnum } from '../utils/constants'
-import { sendMail , welcomeRegisterMessage , emailVarificationMailGenContent , forgotPasswordMailGenContent} from '../utils/mail'
+import { sendMail , emailVarificationMailGenContent , forgotPasswordMailGenContent} from '../utils/mail'
 import { ApiResponse } from '../utils/api-response'
 
 
@@ -94,7 +94,6 @@ const registerUser = asyncHandler(async (req , res) => {
     }
 
 })
-
 
 const login = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
@@ -412,7 +411,21 @@ const changeCurrentPassword = asyncHandler(async(req , res) => {
         .json(new ApiResponse(200, {}, "Password changed successfully"));
 })  
 
-const getUserProfile = asyncHandler(async(req , res) => {})
+const getCurrentUser = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
+});
 
-
-export { registerUser , login , varifyEmail , resendVarifyEmail , refreshAccessToken ,  forgetPasswordRequest , resetPassword , logout , changeCurrentPassword, getUserProfile }
+export { 
+    registerUser,
+    login,
+    varifyEmail,
+    resendVarifyEmail,
+    refreshAccessToken,
+    forgetPasswordRequest,
+    resetPassword,
+    logout,
+    changeCurrentPassword,
+    getCurrentUser
+}
