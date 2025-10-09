@@ -2,6 +2,7 @@
 import { errorMonitor } from "nodemailer/lib/xoauth2";
 import Project from "../models/project.models"
 import ApiError from "../utils/api-erro"
+import { ApiResponse } from "../utils/api-response";
 
 export const getProjects = asyncHandler(async(req , res) => {
     try{
@@ -13,7 +14,7 @@ export const getProjects = asyncHandler(async(req , res) => {
             )
         }
         return res.status(200).json(
-            ApiError(
+            ApiResponse(
                 200,
                 `All projects get successfully`,
                 {response: getAllProjects},
@@ -46,7 +47,7 @@ export const getProjectsByID = asyncHandler(async(req , res) => {
             )
         }
         return res.status(200).json(
-            new ApiError(
+            new ApiResponse(
                 200,
                 `Project get successfully`,
                 { response: user}
@@ -63,17 +64,66 @@ export const getProjectsByID = asyncHandler(async(req , res) => {
 })
 
 export const createProject = asyncHandler(async(req , res) => {
-
+    const { projectname, projectId, projectDiscription , createdBy} = req.body;
+    // validation using middleware in utils ------> express validator
     try{
 
+        const createProject = await Project.create({
+            projectname,
+            projectId,
+            projectDiscription,
+            createdBy
+        })
+
+        await createProject.save();
+
+        return res.status(200).json(
+            new ApiResponse (
+                201,
+                `Project craeted successfully`,
+                {response: createProject}
+            )
+        )
+
     }catch(error) {
-        
+        return res.status().json(
+            new ApiError(
+                500,
+                `Failed to create a project ${error.message}`
+            )
+        )
     }
 })
 
 export const updateProject = asyncHandler(async(req , res) => {})
 
-export const deleteProject = asyncHandler(async(req , res) => {})
+export const deleteProject = asyncHandler(async(req , res) => {
+    const { projectId } = req.body;
+    try{
+        const project = await Project.findByIdAndDelete(projectId)
+        if(!project) {
+            throw new ApiError(
+                401,
+                `Can't find the project, by ${projectId}`
+            )
+        } 
+
+        return res.status(200).json(
+            new ApiResponse (
+                200,
+                `${projectId} Project delete successfuly`
+                
+            )
+        )
+    }catch(error) {
+        return res.status(500).json(
+            new ApiError(
+                500,
+                `Can't delete project, some internal server error, ${error.message}`
+            )
+        )
+    }
+})
 
 export const addMemberToProject = asyncHandler(async(req , res) => {})
 
