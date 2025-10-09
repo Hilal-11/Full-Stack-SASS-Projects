@@ -1,5 +1,4 @@
 
-import { errorMonitor } from "nodemailer/lib/xoauth2";
 import Project from "../models/project.models"
 import ApiError from "../utils/api-erro"
 import { ApiResponse } from "../utils/api-response";
