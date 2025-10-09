@@ -234,7 +234,6 @@ const login = asyncHandler(async (req, res) => {
     );
 });
 
-
 const logout = asyncHandler(async(req , res) => {
     await User.findByIdAndUpdate(
         req.user._id,
@@ -255,8 +254,6 @@ const logout = asyncHandler(async(req , res) => {
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged out"));
 })
-
-
 
 const refreshAccessToken = asyncHandler(async (req , res) => {
 
@@ -311,7 +308,6 @@ const refreshAccessToken = asyncHandler(async (req , res) => {
             throw new ApiError(401, error?.message || "Invalid refresh token");
         }
 })
-
 
 const forgetPasswordRequest = asyncHandler(async(req , res) => {
       const { email } = req.body;
