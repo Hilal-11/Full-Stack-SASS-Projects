@@ -94,7 +94,19 @@ export const createProject = asyncHandler(async(req , res) => {
     }
 })
 
-export const updateProject = asyncHandler(async(req , res) => {})
+export const updateProject = asyncHandler(async(req , res) => {
+    const { projectId , } = req.body;
+    const findProjectToUpdate = await Project.find(projectId)
+    if(!findProjectToUpdate) {
+        throw new ApiError(
+            401,
+            `Project can't exists`
+        )
+    }
+
+    
+
+})
 
 export const deleteProject = asyncHandler(async(req , res) => {
     const { projectId } = req.body;
