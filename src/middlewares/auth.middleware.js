@@ -15,7 +15,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
         throw new ApiError(401, "Unauthorized request");
     }
     try {
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const decodedToken = JWT.verify(token, process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decodedToken?._id).select(
         "-password -refreshToken -emailVerificationToken -emailVerificationExpiry"
         );
@@ -45,7 +45,13 @@ export const validateProjectPermission = async (roles = []) => asyncHandler(asyn
     })
 
     if(!project_members) {
-        throw new ApiError(401, "Project not found```")
+        throw new ApiError(401, "Project not found")
+    }
+    const givenRole = project_members?.role;
+    req.user.role = givenRole;
+
+    if(!roles.includes(givenRole)) {
+        throw new ApiError(403, "You don't have permission of perform this action");
     }
 
 })

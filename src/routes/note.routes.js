@@ -1,8 +1,13 @@
 import express from 'express'
 const router = express.Router();
+import UserRolesEnum from '../utils/constants'
+router.route("/:projectId")
 
-router.route()
-    .get()
-    .post()
+    .get(
+        validatePermissions([UserRolesEnum.ADMIN , UserRolesEnum.MEMBER]), getNotes)
+    .post(
+        validatePermissions([UserRolesEnum.ADMIN, UserRolesEnum.MEMBER]), createNote)
 
+
+//  ---Middleware--- validation for who can access --- Permissions ---
 export default router;
