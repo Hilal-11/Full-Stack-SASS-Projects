@@ -2,7 +2,8 @@ import JWT from 'jsonwebtoken'
 import { asyncHandler } from '../utils/async-handler'
 import User from '../models/user.models';
 import ApiError from '../utils/api-erro';
-
+import ProjectMember from '../models/projectmember.models'
+import mongoose from 'mongoose';
 
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
@@ -31,6 +32,24 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
         throw new ApiError(401, error?.message || "Invalid access token");
     }
 });
+
+export const validateProjectPermission = async (roles = []) => asyncHandler(async (req , res , next) => {
+    const { projectId } = req.params;
+    if(!projectId) {
+        throw new ApiError(401, "Invalid project Id");
+    }
+
+    const project_members = await ProjectMember.findOne({
+        project: mongoose.Types.ObjectId(projectId),
+        user: mongoose.Types.ObjectId(req.user._id)
+    })
+
+    if(!project_members) {
+        throw new ApiError(401, "Project not found```")
+    }
+
+})
+
 
 /**
  *
