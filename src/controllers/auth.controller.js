@@ -310,7 +310,7 @@ const refreshAccessToken = asyncHandler(async (req , res) => {
 })
 
 const forgetPasswordRequest = asyncHandler(async(req , res) => {
-      const { email } = req.body;
+    const { email } = req.body;
 
   // Get email from the client and check if user exists
   const user = await User.findOne({ email });

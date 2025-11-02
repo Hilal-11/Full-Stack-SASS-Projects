@@ -45,7 +45,7 @@ const userChangeCurrentPasswordValidator = () => {
             .notEmpty().withMessage("New password is required"),
     ]
 }
-const forgetPasswordValidator= () => {
+const forgetPasswordValidator = () => {
     return [
         body("email")
         .notEmpty()
