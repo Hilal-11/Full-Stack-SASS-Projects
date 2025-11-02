@@ -1,4 +1,4 @@
-import { body } from "express-validator"
+import { body, param } from "express-validator"
 
 const userRegistrationValidator = () => {
     return [
@@ -71,11 +71,52 @@ const userAssignRoleValidator = () => {
   ];
 };
 
+
+const createNoteValidator = () => {
+    return [
+        param("projectId")
+            .isMongoId()
+            .notEmpty()
+            .withMessage("Project ID is required")
+        ,
+        body("content")
+            .notEmpty()
+            .withMessage("Content is required")
+    ]
+}
+
+const updateNoteValidator = () => {
+    return [
+        param("noteId")
+            .notEmpty()
+            .isMongoId()
+            .withMessage("Note ID is required")
+
+        ,
+        body("content")
+            .notEmpty()
+            .withMessage("Content is required")
+    ]
+}
+
+const deleteNoteValidator = () => {
+    return [
+        param("noteId")
+            .isMongoId()
+            .notEmpty()
+            .withMessage("Note ID is required")
+    ]
+}
+
+
 export { 
     userRegistrationValidator,
     userLoginValidator,
     userChangeCurrentPasswordValidator,
     userAssignRoleValidator,
     forgetPasswordValidator,
-    resetPasswordValidator
+    resetPasswordValidator,
+    createNoteValidator,
+    updateNoteValidator,
+    deleteNoteValidator
 }
