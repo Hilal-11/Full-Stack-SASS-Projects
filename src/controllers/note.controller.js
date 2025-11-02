@@ -7,7 +7,7 @@ import Note from '../models/note.models.js'
 
 const getNote = asyncHandler(async (req , res) => {
     try{
-        const get_notes = await Note.find();
+        
         
     }catch(error) {
 
@@ -29,3 +29,11 @@ const updateNote = asyncHandler(async (req , res) => {
 const deleteNote = asyncHandler(async (req , res) => {
     
 })
+
+export {
+    getNote ,
+    getNoteById,
+    createNote,
+    updateNote,
+    deleteNote
+}

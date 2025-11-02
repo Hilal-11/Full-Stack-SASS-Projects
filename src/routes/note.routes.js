@@ -1,6 +1,8 @@
 import express from 'express'
 const router = express.Router();
-import UserRolesEnum from '../utils/constants'
+import { UserRolesEnum } from '../utils/constants'
+
+
 router.route("/:projectId")
 
     .get(
