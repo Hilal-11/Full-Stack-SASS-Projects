@@ -79,15 +79,18 @@ const updateNote = asyncHandler(async (req , res) => {
     const { noteId } = req.params;
     const { content } = req.body;
     try{
-        const note = await Project.findById(noteId)
-        if(!note) {
-            throw new ApiError(401, "Project not found")
+        const esistingNote = await Project.findById(noteId)
+        if(!esistingNote) {
+            throw new ApiError(401, "Note not found")
         }
 
-        const updateNote = await Note.create({
-            content,
-            createdBy: new mongoose.Types.ObjectId(req.user._id)
-        })
+        const updateNote = await Note.findByIdAndUpdate(
+            noteId,
+            { content },
+            { new: true}
+        ).populate("createdBy" , "username fullname avatar email")
+
+        return res.status(200).json(new ApiResponse(200, updateNote, "Note update successfully"))
 
     }catch(error) {
         throw new ApiError(501, "Failed to update the Note")
@@ -95,15 +98,14 @@ const updateNote = asyncHandler(async (req , res) => {
 })
 
 const deleteNote = asyncHandler(async (req , res) => {
-    const { projectId } = req.params;
-    const { noteId } = req.body;
+    const { noteId } = req.params;
     try{
         const note = await Project.findByIdAndDelete(noteId)
         if(!note) {
             throw new ApiError(401, "Project not found")
         }
- 
-        return res.status(200).json(new ApiResponse(200 ,"Note deleted successfully"))
+        console.log("deleted note = ", note)
+        return res.status(200).json(new ApiResponse(200 , note ,"Note deleted successfully"))
     }catch(error) {
         return new ApiError(501, "failed to delete the Note")
     }
